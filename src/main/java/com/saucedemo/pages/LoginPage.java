@@ -1,7 +1,7 @@
 package com.saucedemo.pages;
 
+import com.base.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.devtools.v146.audits.model.BounceTrackingIssueDetails;
 
 public class LoginPage extends BasePage {
     
