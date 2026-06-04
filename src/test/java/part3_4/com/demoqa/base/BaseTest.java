@@ -2,11 +2,21 @@ package part3_4.com.demoqa.base;
 
 import com.demoqa.pages.HomePage;
 import com.base.BasePage;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.bidi.log.JavascriptLogEntry;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.ITestResult;
 import org.testng.annotations.*;
+import utilities.JavascriptUtility;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.time.Duration;
+import java.util.logging.FileHandler;
 
 import static com.base.BasePage.delay;
 import static utilities.Utility.setUtiliyDriver;
@@ -35,6 +45,24 @@ public class BaseTest {
     public void tearDown(){
         delay(3000);
         driver.quit();
+    }
+    
+    @AfterMethod
+    public void takeFieldResultFailedSceenshot(ITestResult testResult){
+        if (ITestResult.FAILURE == testResult.getStatus()) {
+            TakesScreenshot screenshot = (TakesScreenshot) driver;
+            File source = screenshot.getScreenshotAs(OutputType.FILE);
+            File destination = new File(System.getProperty("user.dir") +
+                    "/resources/screenshots/" + java.time.LocalDate.now() + "-" + testResult.getName() + ".png");
+            try {
+                Files.copy(
+                        source.toPath(),
+                        destination.toPath(),
+                        StandardCopyOption.REPLACE_EXISTING);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
     
 }
