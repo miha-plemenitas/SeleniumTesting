@@ -31,6 +31,10 @@ public class BaseTest {
     public void setUp() {
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        // Implicit wait - it is a global wait, it will be applied to all elements in the test, and it will wait for the element to be present in the DOM before throwing NoSuchElementException
+        // Implicit wait - we already implemented this before, but it is nice to have here in the @BeforeClass
+        // Never use IMPLICIT wait with other wait methods (like EXPLICIT or FLUENT)!!! - can cause unpredictable wait times
+        // Implicit - all elements, Explicit - on individual elements
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10)); // with implicit wait, Selenium will retry for up to 10 seconds instead of failing instantly
     }
     @BeforeMethod
