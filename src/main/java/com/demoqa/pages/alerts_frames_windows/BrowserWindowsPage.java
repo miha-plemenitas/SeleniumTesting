@@ -21,7 +21,8 @@ public class BrowserWindowsPage extends Alerts_Frames_WindowsPage {
         // Get all window handels
         Set<String> allHandles = driver.getWindowHandles(); // can also add to utils
         System.out.println("Number of open windows: " + allHandles.size());
-        
+
+        // Switch to the new window, using the window handle
         for (String handle : allHandles) {
             if (currentHandle.equals(handle)) {
                 System.out.println("1st window ID: " + handle);
@@ -30,7 +31,5 @@ public class BrowserWindowsPage extends Alerts_Frames_WindowsPage {
                 System.out.println("2nd window ID: " + handle);
             }
         }
-        
-        // Switch to the new window, using the window handle
     }
 }
